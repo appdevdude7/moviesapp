@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+    IMAGE_BASE_URL,
     API_BASE_URL,
     POSTER_SIZE,
     BACKDROP_SIZE
@@ -19,9 +20,16 @@ const Home = () => {
     
     const [{state, loading, error}, fetchMovies] = useHomeFetch();
 
+    if(error) return <div>Something went wrong ..</div>;
+    if(!state.movies[0]) return <Spinner />;
+
     return (
         <>
-            <HeroImage />
+            <HeroImage 
+                image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.heroImage.backdrop_path}`} 
+                title={state.heroImage.original_title}
+                text={state.heroImage.overview}
+            />
             <SearchBar />
             <Grid />
             <MovieThumb />
