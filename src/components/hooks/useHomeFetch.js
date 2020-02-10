@@ -14,12 +14,14 @@ export const useHomeFetch = () => {
         setError(false);
         setLoading(true);
 
+        const isLoadMore = endpoint.search('page');
+
         try {
             const result = await (await fetch(endpoint)).json();
             console.log(result)
             setState(prevState => ({
                 ...prevState,
-                movies: [...result.results],
+                movies: isLoadMore !== -1 ? [...prevState.movies, ...result.results] : [...result.results],
                 heroImage: prevState.heroImage || result.results[0],
                 currentPage: result.page,
                 totalPages: result.total_pages
