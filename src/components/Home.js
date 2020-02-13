@@ -20,7 +20,7 @@ import { useHomeFetch } from './hooks/useHomeFetch'
 
 import NoImage from './images/no_image.jpg'
 
-const Home = () => {
+const Home = ({currentPage}) => {
     
     const [{state, loading, error}, fetchMovies] = useHomeFetch();
     const [searchTerm, setSearchTerm] = useState('');
